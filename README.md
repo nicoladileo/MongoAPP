@@ -27,4 +27,6 @@ Open terminal and run `nodemon index.js` to run server on port 3000
 * GET book by id
 * POST new book
 * PUT book by id
-* DELTE book by id
+* DELETE book by id
+* GET all authors
+* POST new author
