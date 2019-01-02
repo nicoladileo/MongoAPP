@@ -5,14 +5,17 @@ const router = express.Router();
 const {Book,validateBook} = require('../models/books');
 
 router.get('/', async (req, res) => {
-    const books = await Book.find().sort('title');
+    const books = await Book.find()
+        .populate('author')
+        .sort('title');
     res.send(books);
 });
 
 router.get('/:id', async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id))
         return res.status(404).send('The book with the given ID was not found.');
-    const book = await Book.findById(req.params.id);
+    const book = await Book.findById(req.params.id)
+        .populate('author');
     if (!book) 
         return res.status(404).send('The book with the given ID was not found.');
     res.send(book);
