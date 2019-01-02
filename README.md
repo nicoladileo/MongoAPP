@@ -23,3 +23,8 @@ This project implement a simple RESTful API written in Express.js framework that
 Open terminal and run `nodemon index.js` to run server on port 3000
 
 ## Available methods
+* GET all books
+* GET book by id
+* POST new book
+* PUT book by id
+* DELTE book by id
