@@ -9,10 +9,8 @@ const Book = mongoose.model('Book', new mongoose.Schema({
     maxlength: 50
   },
   author: {
-    type: String,
-    required: true,
-    minlength: 5,
-    maxlength: 50
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Author'
   },
   genre: {
     type: String,
@@ -29,8 +27,8 @@ const Book = mongoose.model('Book', new mongoose.Schema({
 function validate(book) {
     const schema = {
       title: Joi.string().min(5).max(50).required(),
-      author: Joi.string().min(5).max(50).required(),
-      genre: Joi.string().min(5).max(50).required()
+      genre: Joi.string().min(5).max(50).required(),
+      author: Joi.string().length(24).required()
     };
   
     return Joi.validate(book, schema);

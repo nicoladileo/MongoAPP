@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const morgan = require('morgan');
 const books = require('./routes/books');
+const authors = require('./routes/authors');
 const app = express();
 
 mongoose.connect('mongodb://localhost/bookdb')
@@ -11,6 +12,7 @@ mongoose.connect('mongodb://localhost/bookdb')
 app.use(express.json());
 app.use(morgan())
 app.use('/api/books', books);
+app.use('/api/authors', authors);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
