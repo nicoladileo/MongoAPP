@@ -1,17 +1,17 @@
-
 const express = require('express');
 const mongoose = require('mongoose');
 const router = express.Router();
 const {Book,validateBook} = require('../models/books');
+const authorize = require('../middlewares/auth');
 
-router.get('/', async (req, res) => {
+router.get('/', authorize, async (req, res) => {
     const books = await Book.find()
         .populate('author')
         .sort('title');
     res.send(books);
 });
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', authorize, async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(req.params.id))
         return res.status(404).send('The book with the given ID was not found.');
     const book = await Book.findById(req.params.id)
@@ -21,7 +21,7 @@ router.get('/:id', async (req, res) => {
     res.send(book);
 });
 
-router.post('/', async (req, res) => {
+router.post('/',  async (req, res) => {
     const {error} = validateBook(req.body);
     if (error)
         return res.status(400).send(error.details[0].message);
